@@ -5,22 +5,34 @@ import House from "../House/House";
 import axios from 'axios'
 
 export default class Dashboard extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             houses: []
         }
+
+        this.deleteItem = this.deleteItem.bind(this)
     }
 
     componentDidMount() {
         axios.get('/houses').then((res) => {
-            console.log(res.data)
+            console.log('Mount ', res.data)
             this.setState({
                 houses: res.data
 
             })
         })
     }
+
+    deleteItem(id) {
+        axios.delete(`/houses/${id}`).then(res => {
+            console.log('Axios ', id)
+            this.setState({
+                houses: res.data
+            })
+        })
+    }
+
 
     render(props) {
         let mapHouses = this.state.houses.map((house, index) => {
@@ -34,7 +46,10 @@ export default class Dashboard extends Component {
                         state={house.state}
                         zip={house.zip}
                         img={house.img}
+                        id={house.id}
+                        deleteItem={this.deleteItem}
                     />
+
                 </div>
             )
         })
