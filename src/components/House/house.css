@@ -1,0 +1,10 @@
+#house-main{
+    border: 2px solid lightcoral;
+    height: 200px;
+    background: #FEC2C2;
+    display: block;
+}
+
+img{
+    display: block;
+}
